@@ -4,7 +4,8 @@
 *.ptx
 *.cubin
 *.fatbin
-
+.idea
+cmake*
 *.out
 ex*
 
