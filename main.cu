@@ -30,22 +30,21 @@
 //mat1 m x n
 //mat2 n x p
 //out m x p
-__global__ void max_plus_kernel(const float *mat1, const float *mat2, float *out,
-                                const int m, const int n, const int p) {
+__global__ void maxPlusMulKernel(const float *mat1, const float *mat2, float *out,
+                                 const int m, const int n, const int p) {
     int i = blockIdx.y * blockDim.y + threadIdx.y;
     int j = blockIdx.x * blockDim.x + threadIdx.x;
     if ((i >= m) || (j >= p))
         return;
     for (size_t k = 0; k < n; k++)
         out[i * p + j] = max(out[i * p + j], mat1[i * n + k] + mat2[k * p + j]);
-
 }
 
 //mat1 m x n
 //mat2 n x p
 //out m x p
-__global__ void min_plus_kernel(const float *mat1, const float *mat2, float *out,
-                         const int m, const int n, const int p) {
+__global__ void minPlusMulKernel(const float *mat1, const float *mat2, float *out,
+                                 const int m, const int n, const int p) {
     int i = blockIdx.y * blockDim.y + threadIdx.y;
     int j = blockIdx.x * blockDim.x + threadIdx.x;
     if ((i >= m) || (j >= p))
@@ -82,7 +81,7 @@ int main() {
         b[i] = float(i) + 1;
     }
     for (int i = 0; i < m*p; i++) {
-        out[i] = float(INT_MAX);
+        out[i] = float(INT_MIN);
     }
 
     // Allocate device memory
@@ -96,9 +95,10 @@ int main() {
     CUDA_CHECK(cudaMemcpy(d_out, out, sizeof(float) * m*p, cudaMemcpyHostToDevice));
 
     // Executing kernel
-    dim3 blocks_per_grid(1, 1);
+    dim3 blocks_per_grid(1);
     dim3 threads_per_block(BLOCK_DIM, BLOCK_DIM);
-    min_plus_kernel<<<blocks_per_grid, threads_per_block>>>(d_a, d_b, d_out, m, n, p);
+//    minPlusMulKernel<<<blocks_per_grid, threads_per_block>>>(d_a, d_b, d_out, m, n, p);
+    maxPlusMulKernel<<<blocks_per_grid, threads_per_block>>>(d_a, d_b, d_out, m, n, p);
     CUDA_CHECK(cudaMemcpy(out, d_out, sizeof(float) * m*p, cudaMemcpyDeviceToHost));
 
     showMtr(out, m*p);
