@@ -1,0 +1,14 @@
+name: cuda-check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cuda:
+    runs-on: ubuntu:latest
+    steps:
+      - name: cuda-toolkit
+        uses: Jimver/cuda-toolkit@v0.2.11
+        with:
+          cuda: "12.1.0"
+      - run: nvcc --version
