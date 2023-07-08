@@ -7,7 +7,7 @@ on:
 
 jobs:
   cuda:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     steps:
       - name: cuda-toolkit
         uses: Jimver/cuda-toolkit@v0.2.11
