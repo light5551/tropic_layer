@@ -118,6 +118,7 @@ int main() {
 //    }
 
     // Allocate device memory
+
     CUDA_CHECK(cudaMalloc((void **) &d_a, sizeof(float) * m * n));
     CUDA_CHECK(cudaMalloc((void **) &d_b, sizeof(float) * n * p));
     CUDA_CHECK(cudaMalloc((void **) &d_out, sizeof(float) * m * p));
