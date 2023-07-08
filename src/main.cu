@@ -48,8 +48,8 @@ __global__ void maxPlusMulKernel(const T *mat1, const T *mat2, T *out,
 template<typename T>
 __global__ void maxPlusAddKernel(const T *mat1, const T *mat2, T *out,
                                  const size_t m, const size_t n) {
-    size_t i = blockIdx.y * blockDim.y + threadIdx.y;
-    size_t j = blockIdx.x * blockDim.x + threadIdx.x;
+    const auto i{blockIdx.y * blockDim.y + threadIdx.y};
+    const auto j{blockIdx.x * blockDim.x + threadIdx.x};
     if ((i > m) || (j > n))
         return;
     out[i + j] = max(mat1[i + j], mat2[i + j]);
@@ -62,8 +62,8 @@ __global__ void maxPlusAddKernel(const T *mat1, const T *mat2, T *out,
 template<typename T>
 __global__ void minPlusMulKernel(const T *mat1, const T *mat2, T *out,
                                  const size_t m, const size_t n, const size_t p) {
-    const auto i = blockIdx.y * blockDim.y + threadIdx.y;
-    const auto j = blockIdx.x * blockDim.x + threadIdx.x;
+    const auto i{blockIdx.y * blockDim.y + threadIdx.y};
+    const auto j{blockIdx.x * blockDim.x + threadIdx.x};
     if ((i >= m) || (j >= p))
         return;
     out[i * p + j] = mat1[i * n] + mat2[j];
@@ -78,8 +78,8 @@ __global__ void minPlusMulKernel(const T *mat1, const T *mat2, T *out,
 template<typename T>
 __global__ void minPlusAddKernel(const T *mat1, const T *mat2, T *out,
                                  const size_t m, const size_t n) {
-    size_t i = blockIdx.y * blockDim.y + threadIdx.y;
-    size_t j = blockIdx.x * blockDim.x + threadIdx.x;
+    const auto i{blockIdx.y * blockDim.y + threadIdx.y};
+    const auto j{blockIdx.x * blockDim.x + threadIdx.x};
     if ((i > m) || (j > n))
         return;
     out[i + j] = min(mat1[i + j], mat2[i + j]);
