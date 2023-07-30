@@ -1,5 +1,12 @@
 # tropic_layer
 
+## RoadMap
+
+-[x] pure code
+-[ ] optimized operations using shared memory
+-[ ] optimized batch operations  using shared memory
+-[ ] add torch cpp
+
 ## Usage
 
 ### Get the code
