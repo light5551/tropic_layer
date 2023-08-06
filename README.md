@@ -3,9 +3,8 @@
 ## RoadMap
 
 -[x] pure code
--[ ] optimized operations using shared memory
--[ ] optimized batch operations  using shared memory
--[ ] add torch cpp
+-[x] optimized operations using shared memory
+-[] add torch
 
 ## Usage
 
@@ -65,6 +64,3 @@ PASSED
                     0.00%     329ns         1     329ns     329ns     329ns  cuDeviceGetUuid
 
 ```
-## Dependency
-
-TODO

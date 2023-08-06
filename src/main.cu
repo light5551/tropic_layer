@@ -193,8 +193,6 @@ void mm_cuda(T const* mat_1, T const* mat_2, T* mat_3, size_t m, size_t n,
 
 int main() {
 
-//    torch::Tensor tensor = torch::rand([2, 3]);
-//    std::cout << tensor << std::endl;
     const int m = 3, n = 2, p = 3;
 
     float *a, *b, *out;
@@ -231,30 +229,17 @@ int main() {
     // Executing kernel
     dim3 blocks_per_grid(5);
     dim3 threads_per_block(TILE_DIM, TILE_DIM);
-//    minPlusMulKernel<<<blocks_per_grid, threads_per_block>>>(d_a, d_b, d_out, m, n, p);
-    //maxPlusMulKernel<<<blocks_per_grid, threads_per_block>>>(d_a, d_b, d_out, m, n, p);
-    //plusMulKernel<float><<<blocks_per_grid, threads_per_block>>>(d_a, d_b, d_out, m, n, p);
-
-    //maxPlusMulKernel<<<blocks_per_grid, threads_per_block>>>(d_a, d_b, d_out,
-    //                                                                m, n, p);
     
     mm_cuda(d_a, d_b, d_out, m, n, p, optimizedMaxPlusMulKernel);
-    //minPlusMulKernel<><<<blocks_per_grid, threads_per_block>>>(d_a, d_b, d_out, m, n, p);
-
-    //maxPlusAddKernel<float><<<blocks_per_grid, threads_per_block>>>(d_a, d_b, d_out,
-//                                                                    m, n);
 
     CUDA_CHECK(cudaMemcpy(out, d_out, sizeof(float) * m * p, cudaMemcpyDeviceToHost));
 
     showMtr(out, m * n);
-    //printf("PASSED\n");
     std::cout << "PASSED" << std::endl;
-    // Deallocate device memory
     CUDA_CHECK(cudaFree(d_a));
     CUDA_CHECK(cudaFree(d_b));
     CUDA_CHECK(cudaFree(d_out));
 
-    // Deallocate host memory
     free(a);
     free(b);
     free(out);
