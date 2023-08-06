@@ -2,9 +2,8 @@
 
 ## RoadMap
 
-- [x] pure code
-- [x] optimized operations using shared memory
-- [] add torch
+- [x] optimized operations [MIN|MAX]mm
+- [ ] add torch
 
 ## Usage
 
@@ -24,7 +23,7 @@ mkdir build
 cd build
 cmake ..
 make
-./tropical_layer
+./tropics
 ```
 
 #### Pure
