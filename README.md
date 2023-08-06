@@ -2,9 +2,9 @@
 
 ## RoadMap
 
--[x] pure code
--[x] optimized operations using shared memory
--[] add torch
+- [x] pure code
+- [x] optimized operations using shared memory
+- [] add torch
 
 ## Usage
 
